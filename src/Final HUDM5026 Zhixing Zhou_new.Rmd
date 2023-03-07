@@ -12,6 +12,17 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE)
 ```
 
+### Load Packages
+
+```{r, include=FALSE}
+
+library(tidyverse)
+library(haven) # read and write statistical software dataset files
+library(corrplot) #correlation coefficient plotting
+library(car) # recoding data
+
+```
+
 # What Personal Trait Is Related With Wealth Accumulation?
 
 ## 1. Introduction & literature review
@@ -53,12 +64,6 @@ The descriptive analysis of the variables are as follows.
 [Cleaning Data]{.underline}
 
 ```{r}
-library(tidyverse)
-library(haven) # read and write statistical software dataset files
-library(corrplot) #correlation coefficient plotting
-library(car) # recoding data
-
-
 #Disable scientific notation
 options(scipen=100)
 
