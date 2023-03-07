@@ -1,5 +1,5 @@
 ---
-title: "What personal trait is related with wealth accumulation?"
+title: "What Personal Trait Is Related With Wealth Accumulation?"
 author: "Zhixing Zhou"
 date: '2022-12-20'
 output:
@@ -12,7 +12,6 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE)
 ```
 
-# What Personal Trait Is Related With Wealth Accumulation?
 
 ## 1. Introduction & literature review
 
