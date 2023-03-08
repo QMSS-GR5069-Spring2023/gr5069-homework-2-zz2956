@@ -109,22 +109,43 @@ bbctried<- bbctry2 %>% mutate(across(.cols=1:ncol(bbctry2), .fns=as.numeric)) #m
 [Descriptive Statistics]{.underline}
 
 ```{r}
-# Do summary statistics for variables
-Mean<-mapply(mean,bbctry,na.rm=TRUE)
-Std.Deviation<-mapply(sd,bbctry,na.rm=TRUE)
-stat<-data.frame(Mean,Std.Deviation)
-stat<- stat %>% mutate(Var=Std.Deviation^2)
-n<- mapply(function(x){
-  sum(!is.na(x))}, bbctry) 
-stat<-cbind(stat,n)
+# Summary statistics of variables before filling and filtering for NAs
+Mean <- mapply(mean,
+               bbctry,
+               na.rm = TRUE)
 
-Mean<-mapply(mean,bbctried,na.rm=TRUE)
-Std.Deviation<-mapply(sd,bbctried,na.rm=TRUE)
-stat3<-data.frame(Mean,Std.Deviation)
-stat3<- stat3 %>% mutate(Var=Std.Deviation^2)
-n<- mapply(function(x){
-  sum(!is.na(x))}, bbctried) 
-stat3<-cbind(stat3,n)
+Std.Deviation <- mapply(sd,
+                        bbctry,
+                        na.rm = TRUE)
+
+stat <- data.frame(Mean, Std.Deviation)
+
+stat <- stat %>% 
+  mutate(Var = Std.Deviation^2)
+
+n <- mapply(function(x){
+  sum(!is.na(x))}, bbctry) 
+
+stat <- cbind(stat, n)
+
+# Summary statistics of variables after filling and filtering for NAs
+Mean <- mapply(mean,
+               bbctried,
+               na.rm = TRUE)
+
+Std.Deviation <- mapply(sd,
+                      bbctried,
+                      na.rm = TRUE)
+
+stat3 <-data.frame(Mean, Std.Deviation)
+
+stat3 <- stat3 %>% 
+  mutate(Var = Std.Deviation^2)
+
+n <- mapply(function(x){
+  sum(!is.na(x))}, bbctried)
+
+stat3 <- cbind(stat3, n)
 
 ```
 
