@@ -1,5 +1,5 @@
 ---
-title: "What personal trait is related with wealth accumulation?"
+title: "What Personal Trait Is Related With Wealth Accumulation?"
 author: "Zhixing Zhou"
 date: '2022-12-20'
 output:
@@ -46,7 +46,6 @@ bbc0 <- bbc %>%
 
 ```
 
-# What Personal Trait Is Related With Wealth Accumulation?
 
 ## 1. Introduction & literature review
 
