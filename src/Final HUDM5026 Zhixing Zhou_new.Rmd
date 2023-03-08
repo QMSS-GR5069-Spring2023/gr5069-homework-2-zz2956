@@ -83,7 +83,7 @@ My analysis chose some of these variables. Including the demographic variables( 
 
 The descriptive analysis of the variables are as follows.
 
-[Cleaning Data]{.underline}
+#### Cleaning Data
 
 ```{r}
 #Selecting Variables
@@ -121,7 +121,7 @@ bbctried<- bbctry2 %>% mutate(across(.cols=1:ncol(bbctry2), .fns=as.numeric)) #m
 
 ```
 
-[Descriptive Statistics]{.underline}
+#### Descriptive Statistics
 
 ```{r}
 # Do summary statistics for variables
@@ -159,7 +159,7 @@ stat3
 
 ## 3. Findings
 
-[Correlation]{.underline}
+#### Correlation
 
 ```{r}
 #Correlation Between variables
@@ -175,7 +175,7 @@ corrplot(cor(bbctried),method="number")
 corrplot(cor(bbctried),method="shade")
 ```
 
-[Visualization of Variables and its Relations]{.underline}
+#### Visualization of Variables and its Relations
 
 ```{r}
 
@@ -206,7 +206,7 @@ ggplot(data = bbctried, mapping = aes(group =MinSavings,x=FinancialCapabilities,
 
 ```
 
-[Regression Analysis]{.underline}
+#### Regression Analysis
 
 ```{r}
 #Conduct Regression Analysis
