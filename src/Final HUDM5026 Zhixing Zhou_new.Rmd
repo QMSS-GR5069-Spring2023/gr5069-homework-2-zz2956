@@ -86,38 +86,80 @@ The descriptive analysis of the variables are as follows.
 #### Cleaning Data
 
 ```{r}
-#Selecting Variables
-bbctry<- bbc0[,c("q159","wealth2","Age","q3","q6","PoliticOrient","Religiousness","FinancialKnowledge","FCMakingEndsMeet","FCKeepingTrack","FCPlanningAhead","FCChoosingProducts","FCStayingInformed","Ethnicity","female")]
-#datasets includes three parts, dependent variable, independent variable, dummy variable
-##Personal wealth: the average level of three personal wealth variables, which can only be used after levels of NA has been filtered.
-##wealth 1/2/3: the minimum value of the person's level of certain wealth. Wealth less than 0 are regarded same as 0~500.
-## We should choose wealth2, it is savings and financial investments
-#Financial Capabilities: the sum of all related questions' level.
 
-#Recoding data
-bbctry$q6<-car::recode(bbctry$q6,"1=0;2=10000;3=20000;4=30000;5=40000;6=50000;7=75000;8=150000;else=NA")
-#recode q6: the minimum of gross annual household income 
-bbctryt<- bbctry %>% mutate(FinancialCapabilities=FCMakingEndsMeet+FCKeepingTrack+FCPlanningAhead+FCStayingInformed+FCChoosingProducts) #Calculate FinancialCapabilities: add up five variables of financial capabilities
-bbctryt<- as.data.frame(bbctryt[,c(1:13,16,14:15)])
-bbctry<-bbctryt
-#ethnicity and female: categorial variables
+# Selecting Variables
+bbctry <- bbc0[,c("q159",
+                  "wealth2",
+                  "Age",
+                  "q3",
+                  "q6",
+                  "PoliticOrient",
+                  "Religiousness",
+                  "FinancialKnowledge",
+                  "FCMakingEndsMeet",
+                  "FCKeepingTrack",
+                  "FCPlanningAhead",
+                  "FCChoosingProducts",
+                  "FCStayingInformed",
+                  "Ethnicity",
+                  "female"
+                  )]
 
-#Rename Variables
-bbctry <- bbctry %>% rename("SavingLevel"="q159","MinSavings"="wealth2","Income"="q6","Education"="q3","Gender"="female")
+# Datasets includes three parts, dependent variable, independent variable, dummy variable
+# Personal wealth: the average level of three personal wealth variables, which can only be used after levels of NA has been filtered.
+# wealth 1/2/3: the minimum value of the person's level of certain wealth. Wealth less than 0 are regarded same as 0~500.
+# We should choose wealth2, it is savings and financial investments
+# Financial Capabilities: the sum of all related questions' level.
 
-#Check for null value
+# Recoding data
+
+# Recode q6: the minimum of gross annual household income 
+bbctry$q6 <- car::recode(
+                        bbctry$q6,
+                        "1 = 0;
+                        2 = 10000;
+                        3 = 20000;
+                        4 = 30000;
+                        5 = 40000;
+                        6 = 50000;
+                        7 = 75000;
+                        8 = 150000;
+                        else = NA"
+)
+
+# Calculate FinancialCapabilities: add up five variables of financial capabilities
+bbctryt <- bbctry %>% 
+  mutate(FinancialCapabilities = FCMakingEndsMeet + FCKeepingTrack + FCPlanningAhead + FCStayingInformed + FCChoosingProducts) 
+
+# Ethnicity and female: categorical variables
+bbctryt <- as.data.frame(bbctryt[,c(1:13,16,14:15)])
+bbctry <- bbctryt
+
+
+# Rename Variables
+bbctry <- bbctry %>% rename("SavingLevel"="q159",
+                            "MinSavings"="wealth2",
+                            "Income"="q6",
+                            "Education"="q3",
+                            "Gender"="female"
+                            )
+
+# Check for null value
 sum(is.na(bbctry$wealth2))
 
-#Filter and Filling NAs for analysis
-na<-colSums(is.na(bbctry))
-bbctry1<- bbctry %>% filter(!is.na(MinSavings)) # filter: wealth2  level of not NA; 
+# Filter and Filling NAs for analysis
+na <- colSums(is.na(bbctry))
+bbctry1 <- bbctry %>% filter(!is.na(MinSavings)) # filter: wealth2  level of not NA; 
+
 funm <- function(x) {
   x[is.na(x)] <- mean(x, na.rm = TRUE)
   x
 }
-bbctry2<- as.data.frame(mapply(funm,bbctry1)) # use mean to fill the NAs in Income and Age
-na2<-colSums(is.na(bbctry2))
-bbctried<- bbctry2 %>% mutate(across(.cols=1:ncol(bbctry2), .fns=as.numeric)) #mutate, turn every variable as numeric
+
+bbctry2 <- as.data.frame(mapply(funm,bbctry1)) # use mean to fill the NAs in Income and Age
+na2 <- colSums(is.na(bbctry2))
+bbctried <- bbctry2 %>% 
+  mutate(across(.cols=1:ncol(bbctry2), .fns=as.numeric)) # mutate, turn every variable as numeric
 
 ```
 
