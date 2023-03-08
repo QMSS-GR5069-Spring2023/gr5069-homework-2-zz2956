@@ -7,9 +7,43 @@ output:
   pdf_document: default
 ---
 
-```{r setup, include=TRUE}
+# Global Definitions
+
+### Systems Set up
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE)
+
+#Disable scientific notation
+options(scipen=100)
+
+#Set system language as English
+Sys.setenv(LANGUAGE="en")
+
+```
+
+### Load Packages
+```{r, include=FALSE}
+
+library(tidyverse)
+library(haven) # read and write statistical software dataset files
+library(corrplot) #correlation coefficient plotting
+library(car) # recoding data
+
+```
+
+### Read Data
+```{r, include=FALSE}
+
+setwd("D:/文件整理/TC - Fall Courses/HUDM 5026 Intro to Data Analysis in R/Final")
+
+bbc <- read_dta("bbc_big_money_test_deposited_version.dta")
+
+bbc <- as.data.frame(bbc)
+
+bbc0 <- bbc %>% 
+  mutate(across(.cols=where(is.integer), .fns=as.numeric)) 
+
 ```
 
 # What Personal Trait Is Related With Wealth Accumulation?
@@ -53,24 +87,6 @@ The descriptive analysis of the variables are as follows.
 [Cleaning Data]{.underline}
 
 ```{r}
-library(tidyverse)
-library(haven) # read and write statistical software dataset files
-library(corrplot) #correlation coefficient plotting
-library(car) # recoding data
-
-
-#Disable scientific notation
-options(scipen=100)
-
-#Set system language as English
-Sys.setenv(LANGUAGE="en")
-
-#Read Data
-setwd("D:/文件整理/TC - Fall Courses/HUDM 5026 Intro to Data Analysis in R/Final")
-bbc<-read_dta("bbc_big_money_test_deposited_version.dta")
-bbc<-as.data.frame(bbc)
-bbc0 <- bbc %>% mutate(across(.cols=where(is.integer), .fns=as.numeric)) 
-
 #Selecting Variables
 bbctry<- bbc0[,c("q159","wealth2","Age","q3","q6","PoliticOrient","Religiousness","FinancialKnowledge","FCMakingEndsMeet","FCKeepingTrack","FCPlanningAhead","FCChoosingProducts","FCStayingInformed","Ethnicity","female")]
 #datasets includes three parts, dependent variable, independent variable, dummy variable
