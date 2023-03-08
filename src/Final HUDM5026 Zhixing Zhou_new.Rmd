@@ -194,11 +194,21 @@ ggplot(data = bbctried, mapping = aes(group =MinSavings,x=FinancialCapabilities,
 [Regression Analysis]{.underline}
 
 ```{r}
-#Conduct Regression Analysis
 
-lm1<-lm(data=bbctried,formula=MinSavings~FinancialKnowledge+log(FinancialCapabilities)+Age+Education+Income)
+# Conduct Regression Analysis
+lm1 <-lm(data = bbctried,
+         formula = MinSavings ~ 
+           FinancialKnowledge +
+           log(FinancialCapabilities) +
+           Age +
+           Education +
+           Income
+         )
+
 summary(lm1)
+
 par(mfrow=c(2,2))
+
 plot(lm1)
 
 ```
